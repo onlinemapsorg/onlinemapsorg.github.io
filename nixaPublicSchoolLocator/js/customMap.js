@@ -250,6 +250,8 @@ var nixaPublicSchoolLocator = (function () {
   				for (i=0; i < polygonListElementary.length; i++) {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
+  						map.setCenter(place.geometry.location);
+						map.setZoom(15);
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>, below you can see the available schools for your scenario.";
   						var j;
   						for (j=0; j < schoolsList.length; j++) {
@@ -300,6 +302,8 @@ var nixaPublicSchoolLocator = (function () {
   				for (i=0; i < polygonListIntermediate.length; i++) {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[i][1]);
   					if (result == true) {
+  						map.setCenter(place.geometry.location);
+						map.setZoom(15);
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[i][0] + " School District</b>, below you can see the available schools for your scenario.";
   						var j;
   						for (j=0; j < schoolsList.length; j++) {
@@ -342,12 +346,10 @@ var nixaPublicSchoolLocator = (function () {
   						};
   						break;
   					} else if (result == false) {
-  							document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   					}
   				};
 			};
-			map.setCenter(place.geometry.location);
-			map.setZoom(15);
 			$('#popUpModal').modal('show');
 		};
 	};
