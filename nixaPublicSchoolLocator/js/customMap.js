@@ -210,7 +210,8 @@ var nixaPublicSchoolLocator = (function () {
             	position: place.geometry.location
         	}));
         
-        	console.log(place.geometry.location);
+        	console.log(place.geometry.location.lat);
+        	console.log(place.geometry.location.lng);
 			if (schoolChoiceControl == "None") {
 				document.getElementById("theSchool").innerHTML = "Please choose a school scenario, then try entering your address again.";
 			} else if (schoolChoiceControl == "Elementary") {
