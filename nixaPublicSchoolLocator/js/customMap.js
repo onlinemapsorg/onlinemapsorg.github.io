@@ -80,7 +80,8 @@ var nixaPublicSchoolLocator = (function () {
 				elementary_boundaries_layer.addGeoJson(data.features[i]);
 				var testList = [];
 				var f1 = features[i].geometry.coordinates[0];
-				console.log(f1);
+				var f2 = features[i].geometry.coordinates[1];
+				console.log(f2);
 				var i1;
 				for (i1 = 0; i1 < features[i].geometry.coordinates[0].length; i1++) {
 					var f2 = f1[i1];
