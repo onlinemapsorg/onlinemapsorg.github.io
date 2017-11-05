@@ -7,6 +7,7 @@ var nixaPublicSchoolLocator = (function () {
 	var autocomplete;
 	var place;
 	var schoolChoiceControl = "None";
+	var searchControl = false;
 
 	var polygonListElementary = [];
 	var polygonListIntermediate = [];
@@ -180,6 +181,7 @@ var nixaPublicSchoolLocator = (function () {
 	
 		var markers = [];
 		function onPlaceChanged() {
+			searchControl = false;
 			var paras = document.getElementsByClassName('gonnaRemove');
 
 			while(paras[0]) {
@@ -269,7 +271,8 @@ var nixaPublicSchoolLocator = (function () {
   							
   						};
   						*/
-  						break;
+  						//break;
+  						searchControl = true;
   					} else if (result == false) {
   						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   					}
@@ -327,12 +330,13 @@ var nixaPublicSchoolLocator = (function () {
   							
   						};
   						*/
-  						break;
-  					} else if (result == false) {
-  						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
-  					}
+  						//break;
+  						searchControl = true;
   				};
 			};
+			if (searchControl == false) {
+  				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  			};
 			$('#popUpModal').modal('show');
 		};
 	};
