@@ -265,8 +265,9 @@ var nixaPublicSchoolLocator = (function () {
   									element.appendChild(hr);
   								}
   							}
-  							*/
+  							
   						};
+  						*/
   						break;
   					} else if (result == false) {
   						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
