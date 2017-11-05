@@ -6,13 +6,13 @@ var nixaPublicSchoolLocator = (function () {
 	var elementary_boundaries_layer;
 	var autocomplete;
 	var place;
+	var schoolChoiceControl = "None";
 
 	var polygonListElementary = [];
 	var polygonListIntermediate = [];
 	var schoolsList = [];
 	var intermediateAdds = [];
 	var elementaryAdds = [];
-	var schoolChoiceControl = "None";
 	
 	function initMap() {
 		// construct map
@@ -194,7 +194,7 @@ var nixaPublicSchoolLocator = (function () {
         	markers = [];
         
         	if (!place.geometry) {
-            	alert("Returned place contains no geometry");
+            	console.log("Returned place contains no geometry");
             	return;
         	}
         	var icon = {
@@ -219,9 +219,10 @@ var nixaPublicSchoolLocator = (function () {
 			} else if (schoolChoiceControl == "Elementary") {
 				var i;
   				for (i=0; i < polygonListElementary.length; i++) {
-  					console.log(place.geometry);
+  					console.log(place.geometry.location);
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
+  						console.log("true");
   						map.setCenter(place.geometry.location);
 						map.setZoom(15);
   						//document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>, below you can see the available schools for your scenario.";
@@ -276,9 +277,10 @@ var nixaPublicSchoolLocator = (function () {
 			} else if (schoolChoiceControl == "Intermediate") {
 				var i;
   				for (i=0; i < polygonListIntermediate.length; i++) {
-  					console.log(place.geometry);
+  					console.log(place.geometry.location);
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[i][1]);
   					if (result == true) {
+  						console.log("true");
   						map.setCenter(place.geometry.location);
 						map.setZoom(15);
   						//document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[i][0] + " School District</b>, below you can see the available schools for your scenario.";
