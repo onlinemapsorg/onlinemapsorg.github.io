@@ -256,7 +256,7 @@ var nixaPublicSchoolLocator = (function () {
   						var j;
   						for (j=0; j < schoolsList.length; j++) {
   							if (schoolsList[j][3] != "09" && schoolsList[j][3] != "07") {
-  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListIntermediate[i][1]);
+  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListElementary[i][1]);
   								if (secondResult == true) {
   									var para = document.createElement("p");
   									var node = document.createTextNode(schoolsList[j][1]);
@@ -294,7 +294,7 @@ var nixaPublicSchoolLocator = (function () {
   						};
   						break;
   					} else if (result == false) {
-  						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  						//document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   					}
   				};
 			} else if (schoolChoiceControl == "Intermediate") {
@@ -346,7 +346,7 @@ var nixaPublicSchoolLocator = (function () {
   						};
   						break;
   					} else if (result == false) {
-  						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  						//document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   					}
   				};
 			};
