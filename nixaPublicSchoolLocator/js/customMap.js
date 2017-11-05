@@ -210,16 +210,12 @@ var nixaPublicSchoolLocator = (function () {
             	position: place.geometry.location
         	}));
         
-        
+        	console.log(place.geometry.location);
 			if (schoolChoiceControl == "None") {
 				document.getElementById("theSchool").innerHTML = "Please choose a school scenario, then try entering your address again.";
 			} else if (schoolChoiceControl == "Elementary") {
-				console.log(schoolChoiceControl);
-				console.log(polygonListElementary);
 				var i;
   				for (i=0; i < polygonListElementary.length; i++) {
-  					console.log(polygonListElementary[i][1]);
-  					console.log(polygonListElementary[i][0]);
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>";
@@ -227,11 +223,8 @@ var nixaPublicSchoolLocator = (function () {
   					}
   				};
 			} else if (schoolChoiceControl == "Intermediate") {
-				console.log(schoolChoiceControl);
 				var j;
-  				for (j=0; i < polygonListIntermediate.length; j++) {
-  					console.log(polygonListIntermediate[j][1]);
-  					console.log(polygonListIntermediate[j][0]);
+  				for (j=0; j < polygonListIntermediate.length; j++) {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[j][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[j][0] + " School District</b>";
@@ -239,9 +232,10 @@ var nixaPublicSchoolLocator = (function () {
   					}
   				};
 			};
-			console.log(searchControl);
 			if (searchControl == false) {
   				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  				map.setCenter(place.geometry.location);
+  				map.setZoom(15);
   			} else if (searchControl == true) {
   				map.setCenter(place.geometry.location);
   				map.setZoom(15);
