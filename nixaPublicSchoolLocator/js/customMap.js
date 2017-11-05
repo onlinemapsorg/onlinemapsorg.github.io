@@ -210,8 +210,8 @@ var nixaPublicSchoolLocator = (function () {
             	position: place.geometry.location
         	}));
         
-        	console.log(place.geometry.location.lat);
-        	console.log(place.geometry.location.lng);
+        	console.log(place.geometry.location.lat());
+        	console.log(place.geometry.location.lng());
 			if (schoolChoiceControl == "None") {
 				document.getElementById("theSchool").innerHTML = "Please choose a school scenario, then try entering your address again.";
 			} else if (schoolChoiceControl == "Elementary") {
@@ -226,8 +226,8 @@ var nixaPublicSchoolLocator = (function () {
 			} else if (schoolChoiceControl == "Intermediate") {
 				var j;
   				for (j=0; j < polygonListIntermediate.length; j++) {
-  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[j][1]);
-  					if (result == true) {
+  					var result2 = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[j][1]);
+  					if (result2 == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[j][0] + " School District</b>";
   						searchControl = true;
   					}
