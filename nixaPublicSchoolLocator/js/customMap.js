@@ -182,11 +182,6 @@ var nixaPublicSchoolLocator = (function () {
 		var markers = [];
 		function onPlaceChanged() {
 			searchControl = false;
-			var paras = document.getElementsByClassName('gonnaRemove');
-
-			while(paras[0]) {
-    			paras[0].parentNode.removeChild(paras[0]);
-			}
 		
 			place = autocomplete.getPlace();
 			// Clear out the old markers.
@@ -221,122 +216,28 @@ var nixaPublicSchoolLocator = (function () {
 			} else if (schoolChoiceControl == "Elementary") {
 				var i;
   				for (i=0; i < polygonListElementary.length; i++) {
-  					console.log(place.geometry.location);
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
-  						console.log("true");
-  						map.setCenter(place.geometry.location);
-						map.setZoom(15);
-  						//document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>, below you can see the available schools for your scenario.";
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>";
-  						/*
-  						var j;
-  						for (j=0; j < schoolsList.length; j++) {
-  							if (schoolsList[j][3] != "09" && schoolsList[j][3] != "07") {
-  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListIntermediate[i][1]);
-  								if (secondResult == true) {
-  									var para = document.createElement("p");
-  									var node = document.createTextNode(schoolsList[j][1]);
-  									para.appendChild(node);
-  									para.classList.add("gonnaRemove");
-  								
-  									var para2 = document.createElement("p");
-  									var node2 = document.createTextNode(schoolsList[j][2])
-  									para2.appendChild(node2);
-  									para2.classList.add("gonnaRemove");
-  								
-  									var para3 = document.createElement("p");
-  									var node3 = document.createTextNode(schoolsList[j][4])
-  									para3.appendChild(node3);
-  									para3.classList.add("gonnaRemove");
-  								
-  									var para4 = document.createElement("p");
-  									var node4 = document.createTextNode(schoolsList[j][5])
-  									para4.appendChild(node4);
-  									para4.classList.add("gonnaRemove");
-  								
-  									var br = document.createElement("br");
-  									br.classList.add("gonnaRemove");
-  									var hr = document.createElement("hr");
-  									hr.classList.add("gonnaRemove");
-  									var element = document.getElementById("schoolAppend");
-  									element.appendChild(para);
-  									element.appendChild(para2);
-  									element.appendChild(para3);
-  									element.appendChild(para4);
-  									element.appendChild(br);
-  									element.appendChild(hr);
-  								}
-  							}
-  							
-  						};
-  						*/
-  						//break;
   						searchControl = true;
-  					} else if (result == false) {
-  						document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   					}
   				};
 			} else if (schoolChoiceControl == "Intermediate") {
 				var i;
   				for (i=0; i < polygonListIntermediate.length; i++) {
-  					console.log(place.geometry.location);
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[i][1]);
   					if (result == true) {
-  						console.log("true");
-  						map.setCenter(place.geometry.location);
-						map.setZoom(15);
-  						//document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[i][0] + " School District</b>, below you can see the available schools for your scenario.";
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[i][0] + " School District</b>";
-						/*
-  						var j;
-  						for (j=0; j < schoolsList.length; j++) {
-  							if (schoolsList[j][3] == "09" || schoolsList[j][3] == "07") {
-  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListIntermediate[i][1]);
-  								if (secondResult == true) {
-  									var para = document.createElement("p");
-  									var node = document.createTextNode(schoolsList[j][1]);
-  									para.appendChild(node);
-  									para.classList.add("gonnaRemove");
-  								
-  									var para2 = document.createElement("p");
-  									var node2 = document.createTextNode(schoolsList[j][2])
-  									para2.appendChild(node2);
-  									para2.classList.add("gonnaRemove");
-  								
-  									var para3 = document.createElement("p");
-  									var node3 = document.createTextNode(schoolsList[j][4])
-  									para3.appendChild(node3);
-  									para3.classList.add("gonnaRemove");
-  								
-  									var para4 = document.createElement("p");
-  									var node4 = document.createTextNode(schoolsList[j][5])
-  									para4.appendChild(node4);
-  									para4.classList.add("gonnaRemove");
-  								
-  									var br = document.createElement("br");
-  									br.classList.add("gonnaRemove");
-  									var hr = document.createElement("hr");
-  									hr.classList.add("gonnaRemove");
-  									var element = document.getElementById("schoolAppend");
-  									element.appendChild(para);
-  									element.appendChild(para2);
-  									element.appendChild(para3);
-  									element.appendChild(para4);
-  									element.appendChild(br);
-  									element.appendChild(hr);
-  								}
-  							}
-  							
-  						};
-  						*/
-  						//break;
   						searchControl = true;
+  					}
   				};
 			};
 			if (searchControl == false) {
   				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
-  			};
+  			} else if (searchControl == true) {
+  				map.setCenter(place.geometry.location);
+  				map.setZoom(15);
+  			}
 			$('#popUpModal').modal('show');
 		};
 	};
