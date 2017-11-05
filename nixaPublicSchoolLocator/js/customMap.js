@@ -256,7 +256,7 @@ var nixaPublicSchoolLocator = (function () {
   						var j;
   						for (j=0; j < schoolsList.length; j++) {
   							if (schoolsList[j][3] != "09" && schoolsList[j][3] != "07") {
-  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListElementary[i][1]);
+  								var secondResult = google.maps.geometry.poly.containsLocation(schoolsList[j][0].position, polygonListIntermediate[i][1]);
   								if (secondResult == true) {
   									var para = document.createElement("p");
   									var node = document.createTextNode(schoolsList[j][1]);
