@@ -24,17 +24,18 @@
 	<div id="map"></div>
 	<!-- control container -->
 	<div id="searchMenu">
-		<input id="formOne" type="text" name="geosearch" placeholder="Type your address here"><br>
-		<div id="questionOne" data-toggle="modal" data-target="#myModal">
-			<!--<i class="fa fa-question" aria-hidden="true"></i>-->
-			<i class="fa fa-info" aria-hidden="true"></i>
-		</div>
 	
 		<div id="buttonBox">
 			<div class="btn-group btn-group-justified">
   				<a id="buttonOne" class="btn btn-default" onclick="nixaPublicSchoolLocator.clickedAddDataButtonOne(this.id)">Elementary</a>
   				<a id="buttonTwo" class="btn btn-default" onclick="nixaPublicSchoolLocator.clickedAddDataButtonTwo(this.id)">Intermediate</a>
 			</div>
+		</div>
+		
+		<input id="formOne" type="text" name="geosearch" placeholder="Type your address here"><br>
+		<div id="questionOne" data-toggle="modal" data-target="#myModal">
+			<!--<i class="fa fa-question" aria-hidden="true"></i>-->
+			<i class="fa fa-info" aria-hidden="true"></i>
 		</div>
 	</div>
 	<!-- // Map Container -->
@@ -100,7 +101,7 @@
         			<p id="info01">Facility</p>
         			<p id="info02">Address</p>
         			<p id="info03">Phone</p>
-        			<p id="info04">SchEmail</p>
+        			<!--<p id="info04">SchEmail</p>-->
       			</div>
       			<div class="modal-footer text-center">
         			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -79,20 +79,76 @@ var nixaPublicSchoolLocator = (function () {
 			for (i=0; i < features.length; i++) {
 				elementary_boundaries_layer.addGeoJson(data.features[i]);
 				var testList = [];
-				var f1 = features[i].geometry.coordinates[0];
-				var i1;
-				for (i1 = 0; i1 < features[i].geometry.coordinates[0].length; i1++) {
-					var f2 = f1[i1];
-					var i2;
-					for (i2 = 0; i2 < f2.length; i2++) {
-						testList.push({lat: f1[i1][i2][1], lng: f1[i1][i2][0]});
+				var testListInside = [];
+				var f1 = features[i].geometry.coordinates;
+				// construct single polygon
+				if (f1.length == 1) {
+					// construct simple polygon
+					if (f1[0].length == 1) {
+						var i1;
+						for (i1=0; i1 < f1[0].length; i1++) {
+							var i2;
+							for (i2=0; i2 < f1[0][i1].length; i2++) {
+								testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+							}
+						}
+						var polygon = new google.maps.Polygon({
+							paths: testList
+						});
+						polygonListElementary.push([features[i].properties.SchoolName, polygon]);
+						testList.length = 0;
+					// construct polygon with hole
+					} else if (f1[0].length > 1) {
+						var i1;
+						for (i1=0; i1 < f1[0].length; i1++) {
+							var i2;
+							for (i2=0; i2 < f1[0][i1].length; i2++) {
+								// construct polygon outside
+								if (i1 == 0) {
+									testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+								// construct polygon inside
+								} else if (i1 == 1) {
+									testListInside.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+								}
+							}
+						}
+						var polygon = new google.maps.Polygon({
+							paths: [testList, testListInside]
+						});
+						polygonListElementary.push([features[i].properties.SchoolName, polygon]);
+						testList.length = 0;
+						testListInside.length = 0;
 					}
-				};
-				var polygon = new google.maps.Polygon({
-					paths: testList
-				});
-				polygonListElementary.push([features[i].properties.SchoolName, polygon]);
-				testList.length = 0;
+				// construct multi polygon
+				} else if (f1.length > 1) {
+					var i1;
+					for (i1=0; i1 < f1[0].length; i1++) {
+						var i2;
+						for (i2=0; i2 < f1[0][i1].length; i2++) {
+							testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+						}
+					}
+					
+					var polygon1 = new google.maps.Polygon({
+						paths: testList
+					});
+					polygonListElementary.push([features[i].properties.SchoolName, polygon1]);
+					testList.length = 0;
+					
+					var i1b;
+					for (i1b=0; i1b < f1[1].length; i1b++) {
+							var i2b;
+						for (i2b=0; i2b < f1[1][i1b].length; i2b++) {
+							testList.push({lat: f1[1][i1b][i2b][1], lng: f1[1][i1b][i2b][0]});
+						}
+					}
+					
+					var polygon2 = new google.maps.Polygon({
+						paths: testList
+					});
+					polygonListElementary.push([features[i].properties.SchoolName, polygon2]);
+					testList.length = 0;
+				}
 			};
   		});
 	
@@ -101,13 +157,15 @@ var nixaPublicSchoolLocator = (function () {
 			var i;
 			for (i=0; i < features.length; i++) {
 				var location = {lat: features[i].geometry.coordinates[1], lng: features[i].geometry.coordinates[0]};
-				var marker = new google.maps.Marker({
-					position: location,
-					map: map
-				});
-				var cf = features[i].properties;
-				schoolsList.push([marker, cf.Facility, cf.Address, cf.BGrade, cf.Phone, cf.SchEmail]);
-				attachMarkerListener(marker, cf.Facility, cf.Address, cf.Phone, cf.SchEmail, location);
+				if (features[i].properties.Facility != "John Thomas Elem.") {
+					var marker = new google.maps.Marker({
+						position: location,
+						map: map
+					});
+					var cf = features[i].properties;
+					schoolsList.push([marker, cf.Facility, cf.Address, cf.BGrade, cf.Phone, cf.SchEmail]);
+					attachMarkerListener(marker, cf.Facility, cf.Address, cf.Phone, cf.SchEmail, location);
+				}
 			};
 		
 			function attachMarkerListener(marker, facility, address, phone, email, location) {
@@ -115,7 +173,7 @@ var nixaPublicSchoolLocator = (function () {
           			document.getElementById("info01").innerHTML = facility;
 					document.getElementById("info02").innerHTML = address;
 					document.getElementById("info03").innerHTML = phone;
-					document.getElementById("info04").innerHTML = email;
+					//document.getElementById("info04").innerHTML = email;
         			$('#schoolsModal').modal('show');
         		});
       		};
