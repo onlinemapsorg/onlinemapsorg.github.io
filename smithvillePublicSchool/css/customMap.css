@@ -1,0 +1,81 @@
+
+
+
+
+html, body {
+	margin:0;
+	padding:0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-family: 'Assistant', sans-serif;
+}
+
+#map {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	height: 100vh;
+}
+
+#searchMenu {
+	position: absolute;
+	width: 500px;
+	height: 105px;
+	background: rgba(0,0,0,0.65);
+	left: 0;
+	right: 0;
+	top: 20px;
+	margin: auto;
+	z-index: 100;
+	border-radius: 5px;
+}
+
+#searchMenu #buttonBox {
+	position: absolute;
+	top: 10px;
+	width: 80%;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+
+#searchMenu #formOne {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 55px;
+	border-radius: 4px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+}
+
+#searchMenu #questionOne {
+	position: absolute;
+	top: 57px;
+	right: 7.5px;
+	width: 30px;
+	height: 30px;
+	background: white;
+	border-radius: 50px;
+	cursor: pointer;
+}
+#searchMenu #questionOne:hover {
+	background: #D7DBDD;
+}
+#searchMenu #questionOne i {
+	font-size: 18px;
+	margin-top: 5.5px;
+	margin-left: 12px;
+}
+
+
+
+
+
+
+
+
+ 
