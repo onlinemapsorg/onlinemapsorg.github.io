@@ -38,7 +38,7 @@ var nixaPublicSchoolLocator = (function () {
 		var schools_layer = new google.maps.Data({map: map});
 		
 	
-		$.getJSON('data/school_districts.geojson', function(data) {
+		$.getJSON('data/school_districts_v2.geojson', function(data) {
 			var features = data.features;
 			var i;
 			for (i=0; i < features.length; i++) {
