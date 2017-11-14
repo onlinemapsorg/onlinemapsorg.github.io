@@ -48,24 +48,65 @@ var nixaPublicSchoolLocator = (function () {
 				var testListInside2 = [];
 				var f1 = features[i].geometry.coordinates;
 				
+				console.log(f1);
+				
+				//construct single polygon
+				if (f1.length == 1) {
+					var firstTier;
+					for (firstTier=0; firstTier < f1[0].length; firstTier++) {
+						testList.push({lat: f1[0][firstTier][1], lng: f1[0][firstTier][0]});
+					};
+					var polygon = new google.maps.Polygon({
+						paths: testList
+					});
+					polygonListElementary.push([features[i].properties.name, polygon]);
+					testList.length = 0;
+				//construct polygon with hole
+				} else if (f1.length > 1) {
+					var firstTier;
+					for (firstTier=0; firstTier < f1.length; firstTier++) {
+						var secondTier;
+						for (secondTier=0; secondTier < f1[firstTier].length; secondTier++) {
+							if (firstTier == 0) {
+								testList.push({lat: f1[firstTier][secondTier][1], lng: f1[firstTier][secondTier][0]});
+							} else if (firstTier == 1) {
+								testListInside.push({lat: f1[firstTier][secondTier][1], lng: f1[firstTier][secondTier][0]});
+							} else if (firstTier == 2) {
+								testListInside2.push({lat: f1[firstTier][secondTier][1], lng: f1[firstTier][secondTier][0]});
+							}
+						}
+					}
+					var polygon = new google.maps.Polygon({
+						paths: [testList, testListInside, testListInside2]
+					});
+					polygonListElementary.push([features[i].properties.name, polygon]);
+					testList.length = 0;
+					testListInside.length = 0;
+					testListInside2.length = 0;
+				}
+				/*
 				// construct single polygon
 				if (f1.length == 1) {
 					// construct simple polygon
-					if (f1[0].length == 1) {
+					//if (f1[0].length == 1) {
+					if (true) {
 						var i1;
 						for (i1=0; i1 < f1[0].length; i1++) {
 							var i2;
 							for (i2=0; i2 < f1[0][i1].length; i2++) {
-								testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+								//testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
 							}
 						}
+						
 						var polygon = new google.maps.Polygon({
 							paths: testList
 						});
 						polygonListElementary.push([features[i].properties.name, polygon]);
 						testList.length = 0;
+						
 					// construct polygon with hole
-					} else if (f1[0].length > 1) {
+					//} else if (f1[0].length > 1) {
+					} else if (false) {
 						var i1;
 						for (i1=0; i1 < f1[0].length; i1++) {
 							var i2;
@@ -90,6 +131,7 @@ var nixaPublicSchoolLocator = (function () {
 					}
 				// construct multi polygon
 				} else if (f1.length > 1) {
+					
 					var firstTier;
 					//for each polygon
 					for (firstTier=0; firstTier < f1.length; firstTier++) {
@@ -124,8 +166,8 @@ var nixaPublicSchoolLocator = (function () {
 						}
 					}
 				}
+				*/
 			}
-			console.log(polygonListElementary);
   		});
 	
 		$.getJSON('data/school_points.geojson', function(data) {
