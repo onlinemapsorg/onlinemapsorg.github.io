@@ -2,23 +2,19 @@
 var nixaPublicSchoolLocator = (function () {
 	// initialize function
 	var map;
-	var intermediate_boundary_layer;
 	var elementary_boundaries_layer;
 	var autocomplete;
 	var place;
-	var schoolChoiceControl = "None";
 	var searchControl = false;
 
 	var polygonListElementary = [];
-	var polygonListIntermediate = [];
 	var schoolsList = [];
-	var intermediateAdds = [];
 	var elementaryAdds = [];
 	
 	function initMap() {
 		// construct map
 		map = new google.maps.Map(document.getElementById('map'), {
-    		center: {lat: 37.025, lng: -93.32},
+    		center: {lat: 39.3869, lng: -94.581},
     		zoom: 12,
     		minZoom: 11,
     		zoomControl: true,
@@ -38,49 +34,20 @@ var nixaPublicSchoolLocator = (function () {
 	
 	
 		// construct new data layers
-		var schooldistrict_projected_layer = new google.maps.Data({map: map});
-		intermediate_boundary_layer = new google.maps.Data({map: map});
 		elementary_boundaries_layer = new google.maps.Data({map: map});
 		var schools_layer = new google.maps.Data({map: map});
 		
 	
-		// add geojsons to corresponding data layers
-		$.getJSON('data/schooldistrict_projected.geojson', function(data) {
-			var features = schooldistrict_projected_layer.addGeoJson(data);
-		});
-	
-		$.getJSON('data/intermediate_boundaries.geojson', function(data) {
-			var features = data.features;
-			var i;
-			for (i=0; i < features.length; i++) {
-				intermediate_boundary_layer.addGeoJson(data.features[i]);
-				var testList = [];
-				var f1 = features[i].geometry.coordinates;
-				var i1;
-				for (i1 = 0; i1 < features[i].geometry.coordinates.length; i1++) {
-					var f2 = f1[i1];
-					var i2;
-					for (i2 = 0; i2 < f2.length; i2++) {
-						testList.push({lat: f1[i1][i2][1], lng: f1[i1][i2][0]});
-					}
-				};
-			
-				var polygon = new google.maps.Polygon({
-					paths: testList
-				});
-				polygonListIntermediate.push([features[i].properties.SchoolName, polygon]);
-				testList.length = 0;
-			};
-		});
-	
-		$.getJSON('data/elementary_boundaries.geojson', function(data) {
+		$.getJSON('data/school_districts.geojson', function(data) {
 			var features = data.features;
 			var i;
 			for (i=0; i < features.length; i++) {
 				elementary_boundaries_layer.addGeoJson(data.features[i]);
 				var testList = [];
 				var testListInside = [];
+				var testListInside2 = [];
 				var f1 = features[i].geometry.coordinates;
+				
 				// construct single polygon
 				if (f1.length == 1) {
 					// construct simple polygon
@@ -95,7 +62,7 @@ var nixaPublicSchoolLocator = (function () {
 						var polygon = new google.maps.Polygon({
 							paths: testList
 						});
-						polygonListElementary.push([features[i].properties.SchoolName, polygon]);
+						polygonListElementary.push([features[i].properties.name, polygon]);
 						testList.length = 0;
 					// construct polygon with hole
 					} else if (f1[0].length > 1) {
@@ -109,96 +76,93 @@ var nixaPublicSchoolLocator = (function () {
 								// construct polygon inside
 								} else if (i1 == 1) {
 									testListInside.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+								} else if (i1 == 2) {
+									testListInside2.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
 								}
 							}
 						}
 						var polygon = new google.maps.Polygon({
-							paths: [testList, testListInside]
+							paths: [testList, testListInside, testListInside2]
 						});
-						polygonListElementary.push([features[i].properties.SchoolName, polygon]);
+						polygonListElementary.push([features[i].properties.name, polygon]);
 						testList.length = 0;
 						testListInside.length = 0;
 					}
 				// construct multi polygon
 				} else if (f1.length > 1) {
-					var i1;
-					for (i1=0; i1 < f1[0].length; i1++) {
-						var i2;
-						for (i2=0; i2 < f1[0][i1].length; i2++) {
-							testList.push({lat: f1[0][i1][i2][1], lng: f1[0][i1][i2][0]});
+					var firstTier;
+					//for each polygon
+					for (firstTier=0; firstTier < f1.length; firstTier++) {
+						var secondTier = 0;
+						var ib;
+						//for each array inside polygon
+						for (ib=0; ib < f1[firstTier][0].length; ib++) {
+							var thirdTier;
+							// for each item in array
+							for (thirdTier = 0; thirdTier < 2; thirdTier++) {
+								testList.push({lat: f1[firstTier][secondTier][thirdTier][1], lng: f1[firstTier][secondTier][thirdTier][0]});
+							}
+						}
+						if (firstTier == 0) {
+							var polygon = new google.maps.Polygon({
+								paths: testList
+							});
+							polygonListElementary.push([features[i].properties.name, polygon]);
+							testList.length = 0;
+						} else if (firstTier == 1) {
+							var polygon1 = new google.maps.Polygon({
+								paths: testList
+							});
+							polygonListElementary.push([features[i].properties.name, polygon1]);
+							testList.length = 0;
+						} else if (firstTier == 2) {
+							var polygon2 = new google.maps.Polygon({
+								paths: testList
+							});
+							polygonListElementary.push([features[i].properties.name, polygon2]);
+							testList.length = 0;
 						}
 					}
-					
-					var polygon1 = new google.maps.Polygon({
-						paths: testList
-					});
-					polygonListElementary.push([features[i].properties.SchoolName, polygon1]);
-					testList.length = 0;
-					
-					var i1b;
-					for (i1b=0; i1b < f1[1].length; i1b++) {
-							var i2b;
-						for (i2b=0; i2b < f1[1][i1b].length; i2b++) {
-							testList.push({lat: f1[1][i1b][i2b][1], lng: f1[1][i1b][i2b][0]});
-						}
-					}
-					
-					var polygon2 = new google.maps.Polygon({
-						paths: testList
-					});
-					polygonListElementary.push([features[i].properties.SchoolName, polygon2]);
-					testList.length = 0;
 				}
-			};
+			}
+			console.log(polygonListElementary);
   		});
 	
-		$.getJSON('data/schools_v2.geojson', function(data) {
+		$.getJSON('data/school_points.geojson', function(data) {
 			var features = data.features;
 			var i;
 			for (i=0; i < features.length; i++) {
 				var location = {lat: features[i].geometry.coordinates[1], lng: features[i].geometry.coordinates[0]};
-				if (features[i].properties.Facility != "John Thomas Elem.") {
-					var marker = new google.maps.Marker({
-						position: location,
-						map: map
-					});
-					var cf = features[i].properties;
-					schoolsList.push([marker, cf.Facility, cf.Address, cf.BGrade, cf.Phone, cf.SchEmail]);
-					attachMarkerListener(marker, cf.Facility, cf.Address, cf.Phone, cf.SchEmail, location);
-				}
+				var marker = new google.maps.Marker({
+					position: location,
+					map: map
+				});
+				var cf = features[i].properties;
+				schoolsList.push([marker, cf.Facility, cf.Address, cf.BGrade, cf.Phone, cf.SchEmail]);
+				attachMarkerListener(marker, cf.Facility, cf.Address, cf.Phone, cf.SchEmail, location);
 			};
 		
 			function attachMarkerListener(marker, facility, address, phone, email, location) {
         		marker.addListener('click', function() {
-          			document.getElementById("info01").innerHTML = facility;
-					document.getElementById("info02").innerHTML = address;
-					document.getElementById("info03").innerHTML = phone;
+        			if (facility == null) {
+        				document.getElementById("info01").innerHTML = "School Name: no information";
+        			} else {
+        				document.getElementById("info01").innerHTML = facility;
+        			}
+        			if (address == null) {
+        				document.getElementById("info02").innerHTML = "School Addres: no information";
+        			} else {
+        				document.getElementById("info02").innerHTML = address;
+        			}
+        			if (phone == null || phone == 0) {
+        				document.getElementById("info03").innerHTML = "School Phone: no information";
+        			} else {
+        				document.getElementById("info03").innerHTML = phone;
+        			}
 					//document.getElementById("info04").innerHTML = email;
         			$('#schoolsModal').modal('show');
         		});
       		};
-		});
-	
-	
-		// set layer styles
-		schooldistrict_projected_layer.setStyle({
-  			fillColor: '#C0392B',
-  			fillOpacity: 0.1,
-  			clickable: false,
-  			strokeColor: 'black',
-  			strokeOpacity: 0.5,
-  			strokeWeight: 0.5,
-  			visible: true
-		});
-	
-		intermediate_boundary_layer.setStyle({
-  			fillColor: '#45B39D',
-  			fillOpacity: 0.5,
-  			clickable: false,
-  			strokeColor: 'black',
-  			strokeOpacity: 1,
-  			strokeWeight: 1,
-  			visible: false
 		});
 	
 		elementary_boundaries_layer.setStyle({
@@ -208,7 +172,7 @@ var nixaPublicSchoolLocator = (function () {
   			strokeColor: 'black',
   			strokeOpacity: 1,
   			strokeWeight: 1,
-  			visible: false
+  			visible: true
 		});
 	
 		schools_layer.setStyle({
@@ -218,8 +182,6 @@ var nixaPublicSchoolLocator = (function () {
 		});
 	
 		// add layers to map
-		schooldistrict_projected_layer.setMap(map);
-		intermediate_boundary_layer.setMap(map);
 		elementary_boundaries_layer.setMap(map);
 		schools_layer.setMap(map);
 	
@@ -267,29 +229,14 @@ var nixaPublicSchoolLocator = (function () {
             	position: place.geometry.location
         	}));
         
-        	console.log(place.geometry.location.lat());
-        	console.log(place.geometry.location.lng());
-			if (schoolChoiceControl == "None") {
-				document.getElementById("theSchool").innerHTML = "Please choose a school scenario, then try entering your address again.";
-			} else if (schoolChoiceControl == "Elementary") {
-				var i;
-  				for (i=0; i < polygonListElementary.length; i++) {
-  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
-  					if (result == true) {
-  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>";
-  						searchControl = true;
-  					}
-  				};
-			} else if (schoolChoiceControl == "Intermediate") {
-				var j;
-  				for (j=0; j < polygonListIntermediate.length; j++) {
-  					var result2 = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListIntermediate[j][1]);
-  					if (result2 == true) {
-  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListIntermediate[j][0] + " School District</b>";
-  						searchControl = true;
-  					}
-  				};
-			};
+			var i;
+  			for (i=0; i < polygonListElementary.length; i++) {
+  				var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
+  				if (result == true) {
+  					document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>";
+  					searchControl = true;
+  				}
+  			}
 			if (searchControl == false) {
   				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   				map.setCenter(place.geometry.location);
