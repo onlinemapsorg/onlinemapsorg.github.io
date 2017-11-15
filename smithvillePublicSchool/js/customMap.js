@@ -192,7 +192,7 @@ var nixaPublicSchoolLocator = (function () {
         				document.getElementById("info01").innerHTML = facility;
         			}
         			if (address == null) {
-        				document.getElementById("info02").innerHTML = "School Addres: no information";
+        				document.getElementById("info02").innerHTML = "School Address: no information";
         			} else {
         				document.getElementById("info02").innerHTML = address;
         			}
@@ -286,7 +286,7 @@ var nixaPublicSchoolLocator = (function () {
   			for (i=0; i < polygonListElementary.length; i++) {
   				var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   				if (result == true) {
-  					document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " School District</b>";
+  					document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " Elementary School.</b>";
   					searchControl = true;
   				}
   			}
