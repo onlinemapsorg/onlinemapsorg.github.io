@@ -207,14 +207,25 @@ var nixaPublicSchoolLocator = (function () {
       		};
 		});
 	
-		elementary_boundaries_layer.setStyle({
-  			fillColor: '#2980B9',
-  			fillOpacity: 0.5,
-  			clickable: false,
-  			strokeColor: 'black',
-  			strokeOpacity: 1,
-  			strokeWeight: 1,
-  			visible: true
+		elementary_boundaries_layer.setStyle(function(feature){
+			var name = feature.getProperty('name');
+			var color;
+			if (name == "Eagle Heights") {
+				color = "#CD6155";
+			} else if (name == "Maple") {
+				color = "#5499C7";
+			} else if (name == "Horizon") {
+				color = "#58D68D";
+			}
+  			return {
+  				fillColor: color,
+  				fillOpacity: 0.5,
+  				clickable: false,
+  				strokeColor: 'black',
+  				strokeOpacity: 1,
+  				strokeWeight: 1,
+  				visible: true
+  			};
 		});
 	
 		schools_layer.setStyle({
