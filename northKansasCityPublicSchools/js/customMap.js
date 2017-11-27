@@ -3,7 +3,7 @@ var northKansasCityPublicSchools = (function () {
 	// initialize function
 	var map;
 	var elementary_boundaries_layer;
-	var 6thgrade_boundaries_layer;
+	var sixthgrade_boundaries_layer;
 	var middleschool_boundaries_layer;
 	var highschool_boundaries_layer;
 	var autocomplete;
@@ -11,7 +11,7 @@ var northKansasCityPublicSchools = (function () {
 	var searchControl = false;
 
 	var polygonListElementary = [];
-	var polygonList6thgrade = [];
+	var polygonListSixthgrade = [];
 	var polygonListMiddleschool = [];
 	var polygonListHighschool = [];
 	/*var schoolsList = [];*/
@@ -40,7 +40,7 @@ var northKansasCityPublicSchools = (function () {
 	
 		// construct new data layers
 		elementary_boundaries_layer = new google.maps.Data({map: map});
-		6thgrade_boundaries_layer = new google.maps.Data({map: map});
+		sixthgrade_boundaries_layer = new google.maps.Data({map: map});
 		middleschool_boundaries_layer = new google.maps.Data({map: map});
 		highschool_boundaries_layer = new google.maps.Data({map: map});
 		/*var schools_layer = new google.maps.Data({map: map});*/
@@ -100,10 +100,10 @@ var northKansasCityPublicSchools = (function () {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
-  				6thgrade_boundaries_layer.addGeojson(data.features[i]);
+  				sixthgrade_boundaries_layer.addGeojson(data.features[i]);
   				var testList = []
   				var testListInside = [];
-  				var testListInside2 = []'
+  				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
   				//construct single polygon
@@ -115,7 +115,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: testList
 					});
-					polygonList6thgrade.push([features[i].properties.name, polygon]);
+					polygonListSixthgrade.push([features[i].properties.name, polygon]);
 					testList.length = 0;
   				} else if (f1.length > 1) {
   					var firstTier;
@@ -134,7 +134,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonList6thgrade.push([features[i].properties.name, polygon]);
+					polygonListSixthgrade.push([features[i].properties.name, polygon]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -149,7 +149,7 @@ var northKansasCityPublicSchools = (function () {
   				middleschool_boundaries_layer.addGeojson(data.features[i]);
   				var testList = []
   				var testListInside = [];
-  				var testListInside2 = []'
+  				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
   				//construct single polygon
@@ -195,7 +195,7 @@ var northKansasCityPublicSchools = (function () {
   				highschool_boundaries_layer.addGeojson(data.features[i]);
   				var testList = []
   				var testListInside = [];
-  				var testListInside2 = []'
+  				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
   				//construct single polygon
@@ -294,7 +294,7 @@ var northKansasCityPublicSchools = (function () {
   			};
 		});
 		
-		6thgrade_boundaries_layer.setStyle(function(feature){
+		sixthgrade_boundaries_layer.setStyle(function(feature){
 			var name = feature.getProperty('name');
 			var color;
 			if (name == "Eagle Heights") {
@@ -367,7 +367,7 @@ var northKansasCityPublicSchools = (function () {
 	
 		// add layers to map
 		elementary_boundaries_layer.setMap(map);
-		6thgrade_boundaries_layer.setMap(map);
+		sixthgrade_boundaries_layer.setMap(map);
 		middleschool_boundaries_layer.setMap(map);
 		highschool_boundaries_layer.setMap(map);
 		/*schools_layer.setMap(map);*/
