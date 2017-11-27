@@ -8,8 +8,9 @@ var northKansasCityPublicSchools = (function () {
 	var highschool_boundaries_layer;
 	var autocomplete;
 	var place;
-	var searchControl = false;
-
+	var searchControl = "false";
+	var schoolChoiceControl = "None";
+	
 	var polygonListElementary = [];
 	var polygonListSixthgrade = [];
 	var polygonListMiddleschool = [];
@@ -46,7 +47,7 @@ var northKansasCityPublicSchools = (function () {
 		/*var schools_layer = new google.maps.Data({map: map});*/
 		
 	
-		$.getJSON('data/test01.geojson', function(data) {
+		$.getJSON('data/final/elementarySchoolBoundaries.geojson', function(data) {
 			var features = data.features;
 			var i;
 			for (i=0; i < features.length; i++) {
@@ -55,8 +56,6 @@ var northKansasCityPublicSchools = (function () {
 				var testListInside = [];
 				var testListInside2 = [];
 				var f1 = features[i].geometry.coordinates;
-				
-				console.log(f1);
 				
 				//construct single polygon
 				if (f1.length == 1) {
@@ -87,7 +86,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListElementary.push([features[i].properties.name, polygon]);
+					polygonListElementary.push([features[i].properties.TERRITORY, polygon]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -96,7 +95,7 @@ var northKansasCityPublicSchools = (function () {
   		});
   		
   		
-  		$.getJSON('data/test02.geojson', function(data) {
+  		$.getJSON('data/final/sixthGradeBoundaries.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -134,7 +133,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListSixthgrade.push([features[i].properties.name, polygon]);
+					polygonListSixthgrade.push([features[i].properties.SixthGrade, polygon]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -142,7 +141,7 @@ var northKansasCityPublicSchools = (function () {
   			}
   		});
   		
-  		$.getJSON('data/test03.geojson', function(data) {
+  		$.getJSON('data/final/at_zones_MS.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -180,7 +179,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListMiddleschool.push([features[i].properties.name, polygon]);
+					polygonListMiddleschool.push([features[i].properties.MS, polygon]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -188,7 +187,7 @@ var northKansasCityPublicSchools = (function () {
   			}
   		});
   		
-  		$.getJSON('data/test04.geojson', function(data) {
+  		$.getJSON('data/final/at_zones_HS.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -226,7 +225,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListHighschool.push([features[i].properties.name, polygon]);
+					polygonListHighschool.push([features[i].properties.HS, polygon]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -387,8 +386,8 @@ var northKansasCityPublicSchools = (function () {
 	
 		var markers = [];
 		function onPlaceChanged() {
-			searchControl = false;
-		
+			searchControl = "false";
+					
 			place = autocomplete.getPlace();
 			// Clear out the old markers.
         	markers.forEach(function(marker) {
@@ -415,22 +414,57 @@ var northKansasCityPublicSchools = (function () {
             	title: place.name,
             	position: place.geometry.location
         	}));
-        
-			var i;
-  			for (i=0; i < polygonListElementary.length; i++) {
-  				var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
-  				if (result == true) {
-  					document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + " Elementary School.</b>";
-  					searchControl = true;
+        	
+        	if (schoolChoiceControl == "None") {
+        		document.getElementById("theSchool").innerHTML = "You have not designated a school choice, please choose one of the school scenarios and try searching again";
+        		searchControl = "none";
+        	} else if (schoolChoiceControl == "Elementary") {
+        		var i;
+  				for (i=0; i < polygonListElementary.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + ".</b>";
+  						searchControl = "true";
+  					}
   				}
-  			}
-			if (searchControl == false) {
+        	} else if (schoolChoiceControl == "6thGrade") {
+        		var i;
+  				for (i=0; i < polygonListSixthgrade.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListSixthgrade[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListSixthgrade[i][0] + ".</b>";
+  						searchControl = "true";
+  					}
+  				}
+        	} else if (schoolChoiceControl == "MiddleSchool") {
+        		var i;
+  				for (i=0; i < polygonListMiddleschool.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListMiddleschool[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListMiddleschool[i][0] + ".</b>";
+  						searchControl = "true";
+  					}
+  				}
+        	} else if (schoolChoiceControl == "HighSchool") {
+        		var i;
+  				for (i=0; i < polygonListHighschool.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListHighschool[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListHighschool[i][0] + ".</b>";
+  						searchControl = "true";
+  					}
+  				}
+        	}
+			
+			if (searchControl == "false") {
   				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
   				map.setCenter(place.geometry.location);
   				map.setZoom(15);
-  			} else if (searchControl == true) {
+  			} else if (searchControl == "true") {
   				map.setCenter(place.geometry.location);
   				map.setZoom(15);
+  			} else if (searchControl == "none") {
+  				// do nothing
   			}
 			$('#popUpModal').modal('show');
 		};
@@ -450,8 +484,7 @@ var northKansasCityPublicSchools = (function () {
 	
 	
 	
-	
-	
+
 	
 	
 	function clickedAddDataButtonOne(source) {
@@ -495,7 +528,49 @@ var northKansasCityPublicSchools = (function () {
 				box2.classList.add("btn-default");
 				try {
 					//remove boxTwo data
-					intermediate_boundary_layer.setStyle({
+					sixthgrade_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxThree, try
+			var box3 = document.getElementById("buttonThree");
+			var active3 = box3.classList.contains("btn-primary");
+			if (active3 == true) {
+				box3.classList.remove("btn-primary");
+				box3.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					middleschool_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxFour, try
+			var box4 = document.getElementById("buttonFour");
+			var active4 = box4.classList.contains("btn-primary");
+			if (active4 == true) {
+				box4.classList.remove("btn-primary");
+				box4.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					highschool_boundaries_layer.setStyle({
   						fillColor: '#45B39D',
   						fillOpacity: 0.5,
   						clickable: false,
@@ -517,7 +592,7 @@ var northKansasCityPublicSchools = (function () {
 		var active = box.classList.contains('btn-primary');
 		if (active == true) {
 			//remove data
-			intermediate_boundary_layer.setStyle({
+			sixthgrade_boundaries_layer.setStyle({
   				fillColor: '#45B39D',
   				fillOpacity: 0.5,
   				clickable: false,
@@ -532,7 +607,7 @@ var northKansasCityPublicSchools = (function () {
 			schoolChoiceControl = "None";
 		} else if (active == false) {
 			//add boxTwo data
-			intermediate_boundary_layer.setStyle({
+			sixthgrade_boundaries_layer.setStyle({
   				fillColor: '#45B39D',
   				fillOpacity: 0.5,
   				clickable: false,
@@ -566,14 +641,258 @@ var northKansasCityPublicSchools = (function () {
 					console.log("Found an error");
 				}
 			}
-			schoolChoiceControl = "Intermediate";
+			//remove active class boxThree, try
+			var box3 = document.getElementById("buttonThree");
+			var active3 = box3.classList.contains("btn-primary");
+			if (active3 == true) {
+				box3.classList.remove("btn-primary");
+				box3.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					middleschool_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxFour, try
+			var box4 = document.getElementById("buttonFour");
+			var active4 = box4.classList.contains("btn-primary");
+			if (active4 == true) {
+				box4.classList.remove("btn-primary");
+				box4.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					highschool_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			schoolChoiceControl = "SixthGrade";
+		}
+	};
+	
+	function clickedAddDataButtonThree(source) {
+		var box = document.getElementById(source);
+		var active = box.classList.contains('btn-primary');
+		if (active == true) {
+			//remove data
+			middleschool_boundaries_layer.setStyle({
+  				fillColor: '#45B39D',
+  				fillOpacity: 0.5,
+  				clickable: false,
+  				strokeColor: 'black',
+  				strokeOpacity: 1,
+  				strokeWeight: 1,
+  				visible: false
+			});
+			//remove active class
+			box.classList.remove('btn-primary');
+			box.classList.add('btn-default');
+			schoolChoiceControl = "None";
+		} else if (active == false) {
+			//add boxThreee data
+			middleschool_boundaries_layer.setStyle({
+  				fillColor: '#45B39D',
+  				fillOpacity: 0.5,
+  				clickable: false,
+  				strokeColor: 'black',
+  				strokeOpacity: 1,
+  				strokeWeight: 1,
+  				visible: true
+			});
+			//add active class boxThree
+			box.classList.remove('btn-default');
+			box.classList.add('btn-primary');
+		
+			//remove active class boxOne, try
+			var box2 = document.getElementById("buttonOne");
+			var active2 = box2.classList.contains("btn-primary");
+			if (active2 == true) {
+				box2.classList.remove("btn-primary");
+				box2.classList.add("btn-default");
+				try {
+					//remove boxOne data
+					elementary_boundaries_layer.setStyle({
+  						fillColor: '#2980B9',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxTwo, try
+			var box3 = document.getElementById("buttonTwo");
+			var active3 = box3.classList.contains("btn-primary");
+			if (active3 == true) {
+				box3.classList.remove("btn-primary");
+				box3.classList.add("btn-default");
+				try {
+					//remove boxTwo data
+					sixthgrade_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxFour, try
+			var box4 = document.getElementById("buttonFour");
+			var active4 = box4.classList.contains("btn-primary");
+			if (active4 == true) {
+				box4.classList.remove("btn-primary");
+				box4.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					highschool_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			schoolChoiceControl = "MiddleSchool";
+		}
+	};
+	
+	function clickedAddDataButtonFour(source) {
+		var box = document.getElementById(source);
+		var active = box.classList.contains('btn-primary');
+		if (active == true) {
+			//remove data
+			highschool_boundaries_layer.setStyle({
+  				fillColor: '#45B39D',
+  				fillOpacity: 0.5,
+  				clickable: false,
+  				strokeColor: 'black',
+  				strokeOpacity: 1,
+  				strokeWeight: 1,
+  				visible: false
+			});
+			//remove active class
+			box.classList.remove('btn-primary');
+			box.classList.add('btn-default');
+			schoolChoiceControl = "None";
+		} else if (active == false) {
+			//add boxFour data
+			highschool_boundaries_layer.setStyle({
+  				fillColor: '#45B39D',
+  				fillOpacity: 0.5,
+  				clickable: false,
+  				strokeColor: 'black',
+  				strokeOpacity: 1,
+  				strokeWeight: 1,
+  				visible: true
+			});
+			//add active class boxFour
+			box.classList.remove('btn-default');
+			box.classList.add('btn-primary');
+		
+			//remove active class boxOne, try
+			var box2 = document.getElementById("buttonOne");
+			var active2 = box2.classList.contains("btn-primary");
+			if (active2 == true) {
+				box2.classList.remove("btn-primary");
+				box2.classList.add("btn-default");
+				try {
+					//remove boxOne data
+					elementary_boundaries_layer.setStyle({
+  						fillColor: '#2980B9',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxTwo, try
+			var box3 = document.getElementById("buttonTwo");
+			var active3 = box3.classList.contains("btn-primary");
+			if (active3 == true) {
+				box3.classList.remove("btn-primary");
+				box3.classList.add("btn-default");
+				try {
+					//remove boxTwo data
+					sixthgrade_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			//remove active class boxThree, try
+			var box4 = document.getElementById("buttonThree");
+			var active4 = box4.classList.contains("btn-primary");
+			if (active4 == true) {
+				box4.classList.remove("btn-primary");
+				box4.classList.add("btn-default");
+				try {
+					//remove boxThree data
+					middleschool_boundaries_layer.setStyle({
+  						fillColor: '#45B39D',
+  						fillOpacity: 0.5,
+  						clickable: false,
+  						strokeColor: 'black',
+  						strokeOpacity: 1,
+  						strokeWeight: 1,
+  						visible: false
+					});
+				} catch (err) {
+					console.log("Found an error");
+				}
+			}
+			schoolChoiceControl = "HighSchool";
 		}
 	};
 	
 	return {
 		initMap: initMap,
 		clickedAddDataButtonOne: clickedAddDataButtonOne,
-		clickedAddDataButtonTwo: clickedAddDataButtonTwo
+		clickedAddDataButtonTwo: clickedAddDataButtonTwo,
+		clickedAddDataButtonThree: clickedAddDataButtonThree,
+		clickedAddDataButtonFour: clickedAddDataButtonFour
 	};
 })();
 
