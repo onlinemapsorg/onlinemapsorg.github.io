@@ -22,7 +22,7 @@ var northKansasCityPublicSchools = (function () {
 		map = new google.maps.Map(document.getElementById('map'), {
     		center: {lat: 39.3869, lng: -94.581},
     		zoom: 12,
-    		minZoom: 11,
+    		//minZoom: 11,
     		zoomControl: true,
     		zoomControlOptions: {
     			position: google.maps.ControlPosition.RIGHT_BOTTOM
