@@ -533,14 +533,16 @@ var northKansasCityPublicSchools = (function () {
 					color = "#5D6D7E";
 				} else {
 					color = "#17202A";
-				};
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: false
+				}
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: false
+  				};
 			});
 			//remove active class
 			box.classList.remove('btn-primary');
@@ -562,13 +564,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: true
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: true
+  				};
 			});
 			//add active class boxOne
 			box.classList.remove('btn-default');
@@ -660,13 +664,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: false
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: false
+  				};
 			});
 			//remove active class
 			box.classList.remove('btn-primary');
@@ -688,13 +694,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: true
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: true
+  				};
 			});
 			//add active class boxTwo
 			box.classList.remove('btn-default');
@@ -786,13 +794,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: false
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: false
+  				};
 			});
 			//remove active class
 			box.classList.remove('btn-primary');
@@ -814,13 +824,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: true
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: true
+  				};
 			});
 			//add active class boxThree
 			box.classList.remove('btn-default');
@@ -912,13 +924,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: false
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: false
+  				};
 			});
 			//remove active class
 			box.classList.remove('btn-primary');
@@ -940,13 +954,15 @@ var northKansasCityPublicSchools = (function () {
 				} else {
 					color = "#17202A";
 				}
-  				fillColor: color,
-  				fillOpacity: 0.5,
-  				clickable: false,
-  				strokeColor: 'black',
-  				strokeOpacity: 1,
-  				strokeWeight: 1,
-  				visible: true
+				return {
+  					fillColor: color,
+  					fillOpacity: 0.5,
+  					clickable: false,
+  					strokeColor: 'black',
+  					strokeOpacity: 1,
+  					strokeWeight: 1,
+  					visible: true
+  				};
 			});
 			//add active class boxFour
 			box.classList.remove('btn-default');
