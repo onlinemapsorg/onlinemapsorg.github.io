@@ -521,7 +521,20 @@ var northKansasCityPublicSchools = (function () {
 		if (active == true) {
 			//remove data
 			elementary_boundaries_layer.setStyle({
-  				fillColor: '#2980B9',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -536,7 +549,20 @@ var northKansasCityPublicSchools = (function () {
 		} else if (active == false) {
 			//add data boxOne
 			elementary_boundaries_layer.setStyle({
-  				fillColor: '#2980B9',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -621,7 +647,20 @@ var northKansasCityPublicSchools = (function () {
 		if (active == true) {
 			//remove data
 			sixthgrade_boundaries_layer.setStyle({
-  				fillColor: '#45B39D',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -636,7 +675,20 @@ var northKansasCityPublicSchools = (function () {
 		} else if (active == false) {
 			//add boxTwo data
 			sixthgrade_boundaries_layer.setStyle({
-  				fillColor: '#45B39D',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -736,7 +788,20 @@ var northKansasCityPublicSchools = (function () {
 		} else if (active == false) {
 			//add boxThreee data
 			middleschool_boundaries_layer.setStyle({
-  				fillColor: '#45B39D',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -821,7 +886,20 @@ var northKansasCityPublicSchools = (function () {
 		if (active == true) {
 			//remove data
 			highschool_boundaries_layer.setStyle({
-  				fillColor: '#45B39D',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
@@ -836,7 +914,20 @@ var northKansasCityPublicSchools = (function () {
 		} else if (active == false) {
 			//add boxFour data
 			highschool_boundaries_layer.setStyle({
-  				fillColor: '#45B39D',
+				var name = feature.getProperty('name');
+				var color;
+				if (name == "purple") {
+					color = "#9B59B6";
+				} else if (name == "green") {
+					color = "#28B463";
+				} else if (name == "red") {
+					color = "#EC7063";
+				} else if (name == "blue") {
+					color = "#5D6D7E";
+				} else {
+					color = "#17202A";
+				}
+  				fillColor: color,
   				fillOpacity: 0.5,
   				clickable: false,
   				strokeColor: 'black',
