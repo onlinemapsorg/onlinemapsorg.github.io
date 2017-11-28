@@ -47,7 +47,7 @@ var northKansasCityPublicSchools = (function () {
 		/*var schools_layer = new google.maps.Data({map: map});*/
 		
 	
-		$.getJSON('data/final/elementarySchoolBoundaries.geojson', function(data) {
+		$.getJSON('data/final2/elementaryschools.geojson', function(data) {
 			var features = data.features;
 			var i;
 			for (i=0; i < features.length; i++) {
@@ -86,7 +86,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListElementary.push([features[i].properties.TERRITORY, polygon]);
+					polygonListElementary.push([features[i].properties.TERRITORY, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -95,7 +95,7 @@ var northKansasCityPublicSchools = (function () {
   		});
   		
   		
-  		$.getJSON('data/final/sixthGradeBoundaries.geojson', function(data) {
+  		$.getJSON('data/final2/sixthgrade.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -133,7 +133,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListSixthgrade.push([features[i].properties.SixthGrade, polygon]);
+					polygonListSixthgrade.push([features[i].properties.SixthGrade, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -141,7 +141,7 @@ var northKansasCityPublicSchools = (function () {
   			}
   		});
   		
-  		$.getJSON('data/final/at_zones_MS.geojson', function(data) {
+  		$.getJSON('data/final2/middleschools.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -179,7 +179,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListMiddleschool.push([features[i].properties.MS, polygon]);
+					polygonListMiddleschool.push([features[i].properties.MS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -187,7 +187,7 @@ var northKansasCityPublicSchools = (function () {
   			}
   		});
   		
-  		$.getJSON('data/final/at_zones_HS.geojson', function(data) {
+  		$.getJSON('data/final2/highschools.geojson', function(data) {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
@@ -225,7 +225,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListHighschool.push([features[i].properties.HS, polygon]);
+					polygonListHighschool.push([features[i].properties.HS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -275,12 +275,16 @@ var northKansasCityPublicSchools = (function () {
 		elementary_boundaries_layer.setStyle(function(feature){
 			var name = feature.getProperty('name');
 			var color;
-			if (name == "Eagle Heights") {
-				color = "#CD6155";
-			} else if (name == "Maple") {
-				color = "#5499C7";
-			} else if (name == "Horizon") {
-				color = "#58D68D";
+			if (name == "purple") {
+				color = "#9B59B6";
+			} else if (name == "green") {
+				color = "#28B463";
+			} else if (name == "red") {
+				color = "#EC7063";
+			} else if (name == "blue") {
+				color = "#5D6D7E";
+			} else {
+				color = "#17202A";
 			}
   			return {
   				fillColor: color,
@@ -294,14 +298,18 @@ var northKansasCityPublicSchools = (function () {
 		});
 		
 		sixthgrade_boundaries_layer.setStyle(function(feature){
-			var name = feature.getProperty('name');
+			var name = feature.getProperty('color');
 			var color;
-			if (name == "Eagle Heights") {
-				color = "#CD6155";
-			} else if (name == "Maple") {
-				color = "#5499C7";
-			} else if (name == "Horizon") {
-				color = "#58D68D";
+			if (name == "purple") {
+				color = "#9B59B6";
+			} else if (name == "green") {
+				color = "#28B463";
+			} else if (name == "red") {
+				color = "#EC7063";
+			} else if (name == "blue") {
+				color = "#5D6D7E";
+			} else {
+				color = "#17202A";
 			}
   			return {
   				fillColor: color,
@@ -317,12 +325,16 @@ var northKansasCityPublicSchools = (function () {
 		middleschool_boundaries_layer.setStyle(function(feature){
 			var name = feature.getProperty('name');
 			var color;
-			if (name == "Eagle Heights") {
-				color = "#CD6155";
-			} else if (name == "Maple") {
-				color = "#5499C7";
-			} else if (name == "Horizon") {
-				color = "#58D68D";
+			if (name == "purple") {
+				color = "#9B59B6";
+			} else if (name == "green") {
+				color = "#28B463";
+			} else if (name == "red") {
+				color = "#EC7063";
+			} else if (name == "blue") {
+				color = "#5D6D7E";
+			} else {
+				color = "#17202A";
 			}
   			return {
   				fillColor: color,
@@ -338,12 +350,16 @@ var northKansasCityPublicSchools = (function () {
 		highschool_boundaries_layer.setStyle(function(feature){
 			var name = feature.getProperty('name');
 			var color;
-			if (name == "Eagle Heights") {
-				color = "#CD6155";
-			} else if (name == "Maple") {
-				color = "#5499C7";
-			} else if (name == "Horizon") {
-				color = "#58D68D";
+			if (name == "purple") {
+				color = "#9B59B6";
+			} else if (name == "green") {
+				color = "#28B463";
+			} else if (name == "red") {
+				color = "#EC7063";
+			} else if (name == "blue") {
+				color = "#5D6D7E";
+			} else {
+				color = "#17202A";
 			}
   			return {
   				fillColor: color,
@@ -424,6 +440,9 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListElementary[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListElementary[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListElementary[i][4];
   						searchControl = "true";
   					}
   				}
@@ -433,6 +452,9 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListSixthgrade[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListSixthgrade[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListSixthgrade[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListSixthgrade[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListSixthgrade[i][4];
   						searchControl = "true";
   					}
   				}
@@ -442,6 +464,9 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListMiddleschool[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListMiddleschool[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListMiddleschool[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListMiddleschool[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListMiddleschool[i][4];
   						searchControl = "true";
   					}
   				}
@@ -451,6 +476,9 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListHighschool[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListHighschool[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListHighschool[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListHighschool[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListHighschool[i][4];
   						searchControl = "true";
   					}
   				}
