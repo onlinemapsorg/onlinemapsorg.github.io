@@ -99,7 +99,7 @@ var northKansasCityPublicSchools = (function () {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
-  				sixthgrade_boundaries_layer.addGeojson(data.features[i]);
+  				sixthgrade_boundaries_layer.addGeoJson(data.features[i]);
   				var testList = []
   				var testListInside = [];
   				var testListInside2 = [];
@@ -145,7 +145,7 @@ var northKansasCityPublicSchools = (function () {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
-  				middleschool_boundaries_layer.addGeojson(data.features[i]);
+  				middleschool_boundaries_layer.addGeoJson(data.features[i]);
   				var testList = []
   				var testListInside = [];
   				var testListInside2 = [];
@@ -191,7 +191,7 @@ var northKansasCityPublicSchools = (function () {
   			var features = data.features;
   			var i;
   			for (i=0; i < features.length; i++) {
-  				highschool_boundaries_layer.addGeojson(data.features[i]);
+  				highschool_boundaries_layer.addGeoJson(data.features[i]);
   				var testList = []
   				var testListInside = [];
   				var testListInside2 = [];
