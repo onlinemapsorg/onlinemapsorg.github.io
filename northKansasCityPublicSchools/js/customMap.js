@@ -20,9 +20,9 @@ var northKansasCityPublicSchools = (function () {
 	function initMap() {
 		// construct map
 		map = new google.maps.Map(document.getElementById('map'), {
-    		center: {lat: 39.3869, lng: -94.581},
+    		center: {lat: 39.21298, lng: -94.558956},
     		zoom: 12,
-    		//minZoom: 11,
+    		minZoom: 11,
     		zoomControl: true,
     		zoomControlOptions: {
     			position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -289,7 +289,7 @@ var northKansasCityPublicSchools = (function () {
   				strokeColor: 'black',
   				strokeOpacity: 1,
   				strokeWeight: 1,
-  				visible: true
+  				visible: false
   			};
 		});
 		
@@ -310,7 +310,7 @@ var northKansasCityPublicSchools = (function () {
   				strokeColor: 'black',
   				strokeOpacity: 1,
   				strokeWeight: 1,
-  				visible: true
+  				visible: false
   			};
 		});
 		
@@ -331,7 +331,7 @@ var northKansasCityPublicSchools = (function () {
   				strokeColor: 'black',
   				strokeOpacity: 1,
   				strokeWeight: 1,
-  				visible: true
+  				visible: false
   			};
 		});
 		
@@ -352,7 +352,7 @@ var northKansasCityPublicSchools = (function () {
   				strokeColor: 'black',
   				strokeOpacity: 1,
   				strokeWeight: 1,
-  				visible: true
+  				visible: false
   			};
 		});
 		
