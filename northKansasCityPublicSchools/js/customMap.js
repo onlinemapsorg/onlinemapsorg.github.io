@@ -459,7 +459,7 @@ var northKansasCityPublicSchools = (function () {
   						searchControl = "true";
   					}
   				}
-        	} else if (schoolChoiceControl == "6thGrade") {
+        	} else if (schoolChoiceControl == "SixthGrade") {
         		var i;
   				for (i=0; i < polygonListSixthgrade.length; i++) {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListSixthgrade[i][1]);
