@@ -455,7 +455,11 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListElementary[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + ".</b>";
-  						document.getElementById("theSchoolPhone").innerHTML = polygonListElementary[i][2];
+  						if (polygonListElementary[i][2] != "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = polygonListElementary[i][2];
+  						} else if (polygonListElementary[i][2] == "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = "No phone number listed.";
+  						}
   						document.getElementById("theSchoolAddress1").innerHTML = polygonListElementary[i][3];
   						document.getElementById("theSchoolAddress2").innerHTML = polygonListElementary[i][4];
   						
@@ -474,7 +478,11 @@ var northKansasCityPublicSchools = (function () {
   					var result = google.maps.geometry.poly.containsLocation(place.geometry.location, polygonListSixthgrade[i][1]);
   					if (result == true) {
   						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListSixthgrade[i][0] + ".</b>";
-  						document.getElementById("theSchoolPhone").innerHTML = polygonListSixthgrade[i][2];
+  						if (polygonListSixthgrade[i][2] != "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = polygonListSixthgrade[i][2];
+  						} else if (polygonListSixthgrade[i][2] == "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = "No phone number listed.";
+  						}
   						document.getElementById("theSchoolAddress1").innerHTML = polygonListSixthgrade[i][3];
   						document.getElementById("theSchoolAddress2").innerHTML = polygonListSixthgrade[i][4];
   						searchControl = "true";
