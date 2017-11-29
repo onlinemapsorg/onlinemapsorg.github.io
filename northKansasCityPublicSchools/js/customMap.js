@@ -57,6 +57,8 @@ var northKansasCityPublicSchools = (function () {
 				var testListInside2 = [];
 				var f1 = features[i].geometry.coordinates;
 				
+				console.log(f1);
+				
 				//construct single polygon
 				if (f1.length == 1) {
 					var firstTier;
@@ -105,6 +107,8 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
+  				console.log(f1);
+  				
   				//construct single polygon
   				if (f1.length == 1) {
   					var firstTier;
@@ -151,6 +155,7 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
+  				console.log(f1);
   				//construct single polygon
   				if (f1.length == 1) {
   					var firstTier;
@@ -197,6 +202,7 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
+  				console.log(f1);
   				//construct single polygon
   				if (f1.length == 1) {
   					var firstTier;
