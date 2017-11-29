@@ -1067,6 +1067,7 @@ var northKansasCityPublicSchools = (function () {
 $(document).ready(function() {
 	northKansasCityPublicSchools.initMap();
 	$('#myModal').modal('show');
+	northKansasCityPublicSchools.clickedAddDataButtonOne("buttonOne");
 });
 
 
