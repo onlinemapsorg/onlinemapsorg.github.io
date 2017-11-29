@@ -94,6 +94,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
 				}
 			}
+			console.log(polygonListElementary);
   		});
   		
   		
@@ -143,8 +144,10 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
+  			console.log(polygonListSixthgrade);
   		});
   		
+  		//TODO Changed json file
   		$.getJSON('data/final2/highschools.geojson', function(data) {
   			var features = data.features;
   			var i;
@@ -190,6 +193,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
+  			console.log(polygonListMiddleschool);
   		});
   		
   		$.getJSON('data/final2/highschools.geojson', function(data) {
@@ -237,6 +241,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
+  			console.log(polygonListHighschool);
   		});
 		
 		/*
@@ -436,7 +441,9 @@ var northKansasCityPublicSchools = (function () {
             	title: place.name,
             	position: place.geometry.location
         	}));
+        	
         	console.log(schoolChoiceControl);
+        	
         	if (schoolChoiceControl == "None") {
         		document.getElementById("theSchool").innerHTML = "You have not designated a school choice, please choose one of the school scenarios and try searching again";
         		searchControl = "none";
