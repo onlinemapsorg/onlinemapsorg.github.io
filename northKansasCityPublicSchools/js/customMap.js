@@ -57,8 +57,6 @@ var northKansasCityPublicSchools = (function () {
 				var testListInside2 = [];
 				var f1 = features[i].geometry.coordinates;
 				
-				console.log(f1);
-				
 				//construct single polygon
 				if (f1.length == 1) {
 					var firstTier;
@@ -68,7 +66,8 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: testList
 					});
-					polygonListElementary.push([features[i].properties.TERRITORY, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					
+					polygonListElementary.push([features[i].properties.TERRITORY, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2, features[i].properties.TERRITORY2, features[i].properties.Phone2, features[i].properties.Address1_2, features[i].properties.Address2_2]);
 					testList.length = 0;
 				//construct polygon with hole
 				} else if (f1.length > 1) {
@@ -88,7 +87,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListElementary.push([features[i].properties.TERRITORY, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					polygonListElementary.push([features[i].properties.TERRITORY, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2, features[i].properties.TERRITORY2, features[i].properties.Phone2, features[i].properties.Address1_2, features[i].properties.Address2_2]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -107,8 +106,6 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside = [];
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
-  				
-  				console.log(f1);
   				
   				//construct single polygon
   				if (f1.length == 1) {
@@ -147,7 +144,7 @@ var northKansasCityPublicSchools = (function () {
   			console.log(polygonListSixthgrade);
   		});
   		
-  		//TODO Changed json file
+  		
   		$.getJSON('data/final2/highschools.geojson', function(data) {
   			var features = data.features;
   			var i;
@@ -158,7 +155,6 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
-  				console.log(f1);
   				//construct single polygon
   				if (f1.length == 1) {
   					var firstTier;
@@ -168,7 +164,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: testList
 					});
-					polygonListMiddleschool.push([features[i].properties.MS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					polygonListMiddleschool.push([features[i].properties.MS, polygon, features[i].properties.PhoneMS, features[i].properties.Address1MS, features[i].properties.Address2MS]);
 					testList.length = 0;
   				} else if (f1.length > 1) {
   					var firstTier;
@@ -187,7 +183,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListMiddleschool.push([features[i].properties.MS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					polygonListMiddleschool.push([features[i].properties.MS, polygon, features[i].properties.PhoneMS, features[i].properties.Address1MS, features[i].properties.Address2MS]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -206,7 +202,6 @@ var northKansasCityPublicSchools = (function () {
   				var testListInside2 = [];
   				var f1 = features[i].geometry.coordinates;
   				
-  				console.log(f1);
   				//construct single polygon
   				if (f1.length == 1) {
   					var firstTier;
@@ -216,7 +211,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: testList
 					});
-					polygonListHighschool.push([features[i].properties.HS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					polygonListHighschool.push([features[i].properties.HS, polygon, features[i].properties.PhoneHS, features[i].properties.Address1HS, features[i].properties.Address2HS]);
 					testList.length = 0;
   				} else if (f1.length > 1) {
   					var firstTier;
@@ -235,7 +230,7 @@ var northKansasCityPublicSchools = (function () {
 					var polygon = new google.maps.Polygon({
 						paths: [testList, testListInside, testListInside2]
 					});
-					polygonListHighschool.push([features[i].properties.HS, polygon, features[i].properties.Phone, features[i].properties.Address1, features[i].properties.Address2]);
+					polygonListHighschool.push([features[i].properties.HS, polygon, features[i].properties.PhoneHS, features[i].properties.Address1HS, features[i].properties.Address2HS]);
 					testList.length = 0;
 					testListInside.length = 0;
 					testListInside2.length = 0;
@@ -442,7 +437,14 @@ var northKansasCityPublicSchools = (function () {
             	position: place.geometry.location
         	}));
         	
-        	console.log(schoolChoiceControl);
+        	document.getElementById("theSchool").innerHTML = "";
+        	document.getElementById("theSchoolPhone").innerHTML = "";
+        	document.getElementById("theSchoolAddress1").innerHTML = "";
+        	document.getElementById("theSchoolAddress2").innerHTML = "";
+        	document.getElementById("theSchool2").innerHTML = "";
+        	document.getElementById("theSchoolPhone2").innerHTML = "";
+        	document.getElementById("theSchoolAddress12").innerHTML = "";
+        	document.getElementById("theSchoolAddress22").innerHTML = "";
         	
         	if (schoolChoiceControl == "None") {
         		document.getElementById("theSchool").innerHTML = "You have not designated a school choice, please choose one of the school scenarios and try searching again";
@@ -456,6 +458,13 @@ var northKansasCityPublicSchools = (function () {
   						document.getElementById("theSchoolPhone").innerHTML = polygonListElementary[i][2];
   						document.getElementById("theSchoolAddress1").innerHTML = polygonListElementary[i][3];
   						document.getElementById("theSchoolAddress2").innerHTML = polygonListElementary[i][4];
+  						
+						if (polygonListElementary[i][6] != "null") {
+							document.getElementById("theSchool2").innerHTML = "The address you entered is also within <b>" + polygonListElementary[i][5] + ".</b>";
+							document.getElementById("theSchoolPhone2").innerHTML = polygonListElementary[i][6];
+							document.getElementById("theSchoolAddress12").innerHTML = polygonListElementary[i][7];
+							document.getElementById("theSchoolAddress22").innerHTML = polygonListElementary[i][8];
+						}
   						searchControl = "true";
   					}
   				}
