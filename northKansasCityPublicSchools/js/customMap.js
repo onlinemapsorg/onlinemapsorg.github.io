@@ -21,9 +21,10 @@ var northKansasCityPublicSchools = (function () {
 		
 		$.ajax({
 			type: "GET",
-			url: "../data/NKC_Points_proj_t.csv",
+			url: "../data/custom_search.csv",
 			datatype: "text",
 			success: function(data) {
+				console.log(data);
 				var dat = $.csv.toObjects(data);
 				console.log(dat);
 			}
