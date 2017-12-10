@@ -22,11 +22,14 @@ var northKansasCityPublicSchools = (function () {
 		$.ajax({
 			type: "GET",
 			url: "../data/custom_search.csv",
-			datatype: "text",
+			datatype: "text/csv",
 			success: function(data) {
 				console.log(data);
 				var dat = $.csv.toObjects(data);
 				console.log(dat);
+			},
+			error: function(err) {
+				console.log(err);
 			}
 		});
 		// construct map
@@ -104,7 +107,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
 				}
 			}
-			console.log(polygonListElementary);
+			//console.log(polygonListElementary);
   		});
   		
   		
@@ -152,7 +155,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
-  			console.log(polygonListSixthgrade);
+  			//console.log(polygonListSixthgrade);
   		});
   		
   		
@@ -200,7 +203,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
-  			console.log(polygonListMiddleschool);
+  			//console.log(polygonListMiddleschool);
   		});
   		
   		$.getJSON('data/final2/highschools.geojson', function(data) {
@@ -247,7 +250,7 @@ var northKansasCityPublicSchools = (function () {
 					testListInside2.length = 0;
   				}
   			}
-  			console.log(polygonListHighschool);
+  			//console.log(polygonListHighschool);
   		});
 		
 		/*
