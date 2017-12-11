@@ -16,7 +16,9 @@ var northKansasCityPublicSchools = (function () {
 	var polygonListMiddleschool = [];
 	var polygonListHighschool = [];
 	/*var schoolsList = [];*/
+	
 	var customGeocoder = [];
+	var customInput = document.getElementById("customInput");
 	
 	function initMap() {
 		
@@ -35,6 +37,9 @@ var northKansasCityPublicSchools = (function () {
 					}
 				}
 				console.log(customGeocoder);
+				new Awesomplete(input, {
+					list: customGeocoder
+				});
 			},
 			error: function(err) {
 				console.log(err);
