@@ -21,26 +21,10 @@ var northKansasCityPublicSchools = (function () {
 		
 		$.ajax({
 			type: "GET",
-			url: "https://onlinemapsorg.github.io/northKansasCityPublicSchools/data/custom_search.csv",
-			datatype: "text/csv",
+			url: "https://onlinemapsorg.github.io/northKansasCityPublicSchools/data/convertcsv.json",
+			datatype: "json",
 			success: function(data) {
-				var allTextLines = data.split(/\r\n|\n/);
-				console.log(allTextLines);
-    			var headers = allTextLines[0].split(',');
-    			var lines = [];
-
-    			for (var i = 1; i < allTextLines.length; i++) {
-        			var dat = allTextLines[i].split(',');
-        			if (dat.length == headers.length) {
-
-            			var tarr = [];
-            			for (var j = 0; j < headers.length; j++) {
-                			tarr.push(headers[j] + ":" + dat[j]);
-            			}
-            			lines.push(tarr);
-        			}
-    			}
-    			console.log(lines);
+				console.log(data);
 			},
 			error: function(err) {
 				console.log(err);
