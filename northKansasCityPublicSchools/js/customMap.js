@@ -16,6 +16,7 @@ var northKansasCityPublicSchools = (function () {
 	var polygonListMiddleschool = [];
 	var polygonListHighschool = [];
 	/*var schoolsList = [];*/
+	var customGeocoder = [];
 	
 	function initMap() {
 		
@@ -24,8 +25,16 @@ var northKansasCityPublicSchools = (function () {
 			url: "https://onlinemapsorg.github.io/northKansasCityPublicSchools/data/convertcsv.json",
 			datatype: "json",
 			success: function(data) {
-				console.log(data.length);
-				console.log(data[0]);
+				var dataL = data.length;
+				var i;
+				for (i=0; i < dataL; i++) {
+					if (i==0) {
+						console.log('skip');
+					} else {
+						customGeocoder.push(data[i][0]);
+					}
+				}
+				console.log(customGeocoder);
 			},
 			error: function(err) {
 				console.log(err);
