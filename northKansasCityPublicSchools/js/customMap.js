@@ -24,9 +24,22 @@ var northKansasCityPublicSchools = (function () {
 			url: "https://onlinemapsorg.github.io/northKansasCityPublicSchools/data/custom_search.csv",
 			datatype: "text/csv",
 			success: function(data) {
-				console.log(data);
-				var dat = $.csv.toObjects(data);
-				console.log(dat);
+				var allTextLines = data.split(/\r\n|\n/);
+    			var headers = allTextLines[0].split(',');
+    			var lines = [];
+
+    			for (var i = 1; i < allTextLines.length; i++) {
+        			var dat = allTextLines[i].split(',');
+        			if (dat.length == headers.length) {
+
+            			var tarr = [];
+            			for (var j = 0; j < headers.length; j++) {
+                			tarr.push(headers[j] + ":" + dat[j]);
+            			}
+            			lines.push(tarr);
+        			}
+    			}
+    			console.log(lines);
 			},
 			error: function(err) {
 				console.log(err);
