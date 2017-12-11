@@ -25,6 +25,7 @@ var northKansasCityPublicSchools = (function () {
 			datatype: "text/csv",
 			success: function(data) {
 				var allTextLines = data.split(/\r\n|\n/);
+				console.log(allTextLines);
     			var headers = allTextLines[0].split(',');
     			var lines = [];
 
