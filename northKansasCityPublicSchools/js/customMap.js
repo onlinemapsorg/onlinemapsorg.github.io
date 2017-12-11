@@ -18,6 +18,7 @@ var northKansasCityPublicSchools = (function () {
 	/*var schoolsList = [];*/
 	
 	var customGeocoder = [];
+	var crossReferenceCustom = [];
 	var customInput = document.getElementById("customInput");
 	
 	function initMap() {
@@ -34,11 +35,14 @@ var northKansasCityPublicSchools = (function () {
 						//do nothing
 					} else {
 						customGeocoder.push(data[i][0]);
+						crossReferenceCustom.push(data[i]);
 					}
 				}
 				console.log(customGeocoder);
 				new Awesomplete(customInput, {
-					list: customGeocoder
+					list: customGeocoder,
+					maxItems: 25,
+					minChars: 2
 				});
 			},
 			error: function(err) {
