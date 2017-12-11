@@ -21,7 +21,7 @@ var northKansasCityPublicSchools = (function () {
 		
 		$.ajax({
 			type: "GET",
-			url: "../data/custom_search.csv",
+			url: "https://onlinemapsorg.github.io/northKansasCityPublicSchools/data/custom_search.csv",
 			datatype: "text/csv",
 			success: function(data) {
 				console.log(data);
