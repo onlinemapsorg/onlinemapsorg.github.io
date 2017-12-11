@@ -31,13 +31,13 @@ var northKansasCityPublicSchools = (function () {
 				var i;
 				for (i=0; i < dataL; i++) {
 					if (i==0) {
-						console.log('skip');
+						//do nothing
 					} else {
 						customGeocoder.push(data[i][0]);
 					}
 				}
 				console.log(customGeocoder);
-				new Awesomplete(input, {
+				new Awesomplete(customInput, {
 					list: customGeocoder
 				});
 			},
