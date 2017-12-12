@@ -13,7 +13,7 @@
 }
 
 .awesomplete > input {
-    display: block;
+    #display: block;
 }
 
 .awesomplete > ul {

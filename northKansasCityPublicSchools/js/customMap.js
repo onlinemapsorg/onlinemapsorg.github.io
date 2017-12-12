@@ -38,7 +38,6 @@ var northKansasCityPublicSchools = (function () {
 						crossReferenceCustom.push(data[i]);
 					}
 				}
-				console.log(customGeocoder);
 				new Awesomplete(customInput, {
 					list: customGeocoder,
 					maxItems: 25,
@@ -51,8 +50,9 @@ var northKansasCityPublicSchools = (function () {
 		});
 		
 		document.getElementById("customInput").addEventListener("awesomplete-selectcomplete", function(event) {
-			console.log(event);
+			console.log(event.text.value);
 		});
+		
 		// construct map
 		map = new google.maps.Map(document.getElementById('map'), {
     		center: {lat: 39.21298, lng: -94.558956},
