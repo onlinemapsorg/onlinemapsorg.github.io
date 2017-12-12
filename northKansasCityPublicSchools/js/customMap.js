@@ -455,7 +455,7 @@ var northKansasCityPublicSchools = (function () {
 			searchControl = "false";
 					
 			place = autocomplete.getPlace();
-			consolelog(place.geometry.location);
+			console.log(place.geometry.location);
 			// Clear out the old markers.
         	markers.forEach(function(marker) {
             	marker.setMap(null);
