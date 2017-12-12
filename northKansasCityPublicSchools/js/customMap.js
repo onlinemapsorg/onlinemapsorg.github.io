@@ -55,7 +55,7 @@ var northKansasCityPublicSchools = (function () {
 			var i;
 			for (i=0; i < crossL; i++) {
 				if (event.text.value == crossReferenceCustom[i][0]) {
-					var geom = new google.maps.LatLng(parseFloat(crossReferenceCustom[i][1]), parseFloat(crossReferenceCustom[i][2]));
+					var geom = new google.maps.LatLng(parseFloat(crossReferenceCustom[i][2]), parseFloat(crossReferenceCustom[i][1]));
 					onPlaceChanged2(geom)
 				}
 			}
