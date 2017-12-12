@@ -51,6 +51,7 @@ var northKansasCityPublicSchools = (function () {
 		
 		document.getElementById("customInput").addEventListener("awesomplete-selectcomplete", function(event) {
 			console.log(event.text.value);
+			var geom;
 			var crossL = crossReferenceCustom.length;
 			var i;
 			for (i=0; i < crossL; i++) {
@@ -58,6 +59,7 @@ var northKansasCityPublicSchools = (function () {
 					console.log(i)
 				}
 			}
+			//onPlaceChanged2(geom)
 		});
 		
 		// construct map
@@ -569,7 +571,118 @@ var northKansasCityPublicSchools = (function () {
   			}
 			$('#popUpModal').modal('show');
 		};
+		
+		function onPlaceChanged2(geom) {
+			searchControl = "false";
+			
+			// Clear out the old markers.
+        	markers.forEach(function(marker) {
+            	marker.setMap(null);
+        	});
+        	markers = [];
+        	
+        	} catch (err) {
+        		console.log("found error");
+        	}
+
+        	// Create a marker for each place.
+        	markers.push(new google.maps.Marker({
+            	map: map,
+            	position: geom
+        	}));
+        	
+        	document.getElementById("theSchool").innerHTML = "";
+        	document.getElementById("theSchoolPhone").innerHTML = "";
+        	document.getElementById("theSchoolAddress1").innerHTML = "";
+        	document.getElementById("theSchoolAddress2").innerHTML = "";
+        	document.getElementById("theSchool2").innerHTML = "";
+        	document.getElementById("theSchoolPhone2").innerHTML = "";
+        	document.getElementById("theSchoolAddress12").innerHTML = "";
+        	document.getElementById("theSchoolAddress22").innerHTML = "";
+        	
+        	if (schoolChoiceControl == "None") {
+        		document.getElementById("theSchool").innerHTML = "You have not designated a school choice, please choose one of the school scenarios and try searching again";
+        		searchControl = "none";
+        	} else if (schoolChoiceControl == "Elementary") {
+        		var i;
+  				for (i=0; i < polygonListElementary.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(geom, polygonListElementary[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListElementary[i][0] + ".</b>";
+  						if (polygonListElementary[i][2] != "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = polygonListElementary[i][2];
+  						} else if (polygonListElementary[i][2] == "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = "No phone number listed.";
+  						}
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListElementary[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListElementary[i][4];
+  						
+						if (polygonListElementary[i][6] != "null") {
+							document.getElementById("theSchool2").innerHTML = "The address you entered is also within <b>" + polygonListElementary[i][5] + ".</b>";
+							document.getElementById("theSchoolPhone2").innerHTML = polygonListElementary[i][6];
+							document.getElementById("theSchoolAddress12").innerHTML = polygonListElementary[i][7];
+							document.getElementById("theSchoolAddress22").innerHTML = polygonListElementary[i][8];
+						}
+  						searchControl = "true";
+  					}
+  				}
+        	} else if (schoolChoiceControl == "SixthGrade") {
+        		var i;
+  				for (i=0; i < polygonListSixthgrade.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(geom, polygonListSixthgrade[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListSixthgrade[i][0] + ".</b>";
+  						if (polygonListSixthgrade[i][2] != "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = polygonListSixthgrade[i][2];
+  						} else if (polygonListSixthgrade[i][2] == "null") {
+  							document.getElementById("theSchoolPhone").innerHTML = "No phone number listed.";
+  						}
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListSixthgrade[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListSixthgrade[i][4];
+  						searchControl = "true";
+  					}
+  				}
+        	} else if (schoolChoiceControl == "MiddleSchool") {
+        		var i;
+  				for (i=0; i < polygonListMiddleschool.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(geom, polygonListMiddleschool[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListMiddleschool[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListMiddleschool[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListMiddleschool[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListMiddleschool[i][4];
+  						searchControl = "true";
+  					}
+  				}
+        	} else if (schoolChoiceControl == "HighSchool") {
+        		var i;
+  				for (i=0; i < polygonListHighschool.length; i++) {
+  					var result = google.maps.geometry.poly.containsLocation(geom, polygonListHighschool[i][1]);
+  					if (result == true) {
+  						document.getElementById("theSchool").innerHTML = "The address you entered is within <b>" + polygonListHighschool[i][0] + ".</b>";
+  						document.getElementById("theSchoolPhone").innerHTML = polygonListHighschool[i][2];
+  						document.getElementById("theSchoolAddress1").innerHTML = polygonListHighschool[i][3];
+  						document.getElementById("theSchoolAddress2").innerHTML = polygonListHighschool[i][4];
+  						searchControl = "true";
+  					}
+  				}
+        	}
+			
+			if (searchControl == "false") {
+  				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
+  				//map.setCenter(place.geometry.location);
+  				//map.setZoom(15);
+  			} else if (searchControl == "true") {
+  				map.setCenter(geom);
+  				map.setZoom(15);
+  			} else if (searchControl == "none") {
+  				// do nothing
+  			}
+			$('#popUpModal').modal('show');
+		};
 	};
+	
+	
 	
 	
 	
