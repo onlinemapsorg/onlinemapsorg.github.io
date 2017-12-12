@@ -665,8 +665,8 @@ var northKansasCityPublicSchools = (function () {
 			
 			if (searchControl == "false") {
   				document.getElementById("theSchool").innerHTML = "Oops! The address you have entered is not within the school district(s). Try entering another address.";
-  				//map.setCenter(place.geometry.location);
-  				//map.setZoom(15);
+  				map.setCenter(markers[0].getPosition());
+  				map.setZoom(15);
   			} else if (searchControl == "true") {
   				map.setCenter(markers[0].getPosition());
   				map.setZoom(15);
