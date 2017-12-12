@@ -56,7 +56,7 @@ var northKansasCityPublicSchools = (function () {
 			for (i=0; i < crossL; i++) {
 				if (event.text.value == crossReferenceCustom[i][0]) {
 					console.log(i)
-					var geom = {lat:crossReferenceCustom[i][1], lng:crossReferenceCustom[i][2]}
+					var geom = {lat:parseFloat(crossReferenceCustom[i][1]), lng:parseFloat(crossReferenceCustom[i][2])}
 					console.log(geom)
 					onPlaceChanged2(geom)
 				}
