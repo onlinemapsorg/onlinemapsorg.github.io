@@ -50,7 +50,7 @@ var northKansasCityPublicSchools = (function () {
 		});
 		
 		document.getElementById("customInput").addEventListener("awesomplete-selectcomplete", function(event) {
-			console.log(event.text.value);
+			//console.log(event.text.value);
 			var crossL = crossReferenceCustom.length;
 			var i;
 			for (i=0; i < crossL; i++) {
@@ -454,7 +454,7 @@ var northKansasCityPublicSchools = (function () {
 			searchControl = "false";
 					
 			place = autocomplete.getPlace();
-			console.log(place.geometry.location);
+			//console.log(place.geometry.location);
 			// Clear out the old markers.
         	markers.forEach(function(marker) {
             	marker.setMap(null);
