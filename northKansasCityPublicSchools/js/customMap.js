@@ -50,7 +50,7 @@ var northKansasCityPublicSchools = (function () {
 			}
 		});
 		
-		customGeocoder.addEventListener("awesomplete-selectcomplete", function(event) {
+		document.getElementById("customInput").addEventListener("awesomplete-selectcomplete", function(event) {
 			console.log(event);
 		});
 		// construct map
