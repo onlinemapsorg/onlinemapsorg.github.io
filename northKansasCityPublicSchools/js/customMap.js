@@ -40,7 +40,7 @@ var northKansasCityPublicSchools = (function () {
 				}
 				new Awesomplete(customInput, {
 					list: customGeocoder,
-					maxItems: 25,
+					maxItems: 15,
 					minChars: 2
 				});
 			},
