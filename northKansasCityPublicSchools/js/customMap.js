@@ -51,15 +51,16 @@ var northKansasCityPublicSchools = (function () {
 		
 		document.getElementById("customInput").addEventListener("awesomplete-selectcomplete", function(event) {
 			console.log(event.text.value);
-			var geom;
 			var crossL = crossReferenceCustom.length;
 			var i;
 			for (i=0; i < crossL; i++) {
 				if (event.text.value == crossReferenceCustom[i][0]) {
 					console.log(i)
+					var geom = {lat:crossReferenceCustom[i][1], lng:crossReferenceCustom[i][2]}
+					console.log(geom)
+					onPlaceChanged2(geom)
 				}
 			}
-			//onPlaceChanged2(geom)
 		});
 		
 		// construct map
