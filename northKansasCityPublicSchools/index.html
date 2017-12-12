@@ -37,11 +37,18 @@
 		
 		<input id="formOne" type="text" name="geosearch" placeholder="Type your address here"><br>
 		
-		<input id="customInput" type="text" name="customInput" placeholder="Use a designated list of addresses">
+		<input id="customInput" type="text" name="customInput" placeholder="Type your address here">
 		
 		<div id="questionOne" data-toggle="modal" data-target="#myModal">
 			<!--<i class="fa fa-question" aria-hidden="true"></i>-->
 			<i class="fa fa-info" aria-hidden="true"></i>
+		</div>
+		
+		<div id="buttonBox2">
+			<div class="btn-group btn-group-justified">
+  				<a id="buttonOne2" class="btn btn-default" onclick="northKansasCityPublicSchools.clickedChangeGeocoder1(this.id)">Google Search</a>
+  				<a id="buttonTwo2" class="btn btn-default" onclick="northKansasCityPublicSchools.clickedChangeGeocoder2(this.id)">Custom Search</a>
+			</div>
 		</div>
 	</div>
 	<!-- // Map Container -->
@@ -59,7 +66,7 @@
       				<!-- TODO -->
         			<p style="text-align: center;">You can use this tool to view which school is available to you based on where you live.</p>
         			<hr>
-        			<p>1. Choose a school scenario, then type your address in the window at the top - a dropdown will appear to help you complete your address.</p>
+        			<p>1. Choose a school scenario, then type your address in the window at the top - a dropdown will appear to help you complete your address. You may choose either a Google Search from the Google Database addresses or a Custom Search from a designated list of addresses.</p>
         			<img class="img-responsive" src="data/info1.png" alt="info1">
         			<br>
         			<br>

@@ -8,8 +8,10 @@
 }
 
 .awesomplete {
-    display: inline-block;
-    position: relative;
+	width: 100%;
+	margin: 0 auto;
+    #display: inline-block;
+    #position: relative;
 }
 
 .awesomplete > input {

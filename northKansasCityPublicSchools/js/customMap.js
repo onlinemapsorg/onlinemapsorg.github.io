@@ -1100,12 +1100,62 @@ var northKansasCityPublicSchools = (function () {
 		}
 	};
 	
+	function clickedChangeGeocoder1(source) {
+		var box = document.getElementById(source);
+		var active = box.classList.contains('btn-primary');
+		if (active == true) {
+			box.classList.remove('btn-primary');
+			box.classList.add('btn-default');
+			document.getElementById("formOne").style.visibility = "hidden";
+						
+			clickedChangeGeocoder2('buttonTwo2');
+		} else if (active == false) {
+			box.classList.remove('btn-default');
+			box.classList.add('btn-primary');
+			document.getElementById("formOne").style.visibility = "visible";
+			
+			var box2 = document.getElementById('buttonTwo2');
+			try {
+				box2.classList.remove('btn-primary');
+				box2.classList.add('btn-default');
+			} catch (err) {
+				console.log("Found an error");
+			}
+		}
+	};
+	
+	function clickedChangeGeocoder2(source) {
+		var box = document.getElementById(source);
+		var active = box.classList.contains('btn-primary');
+		if (active == true) {
+			box.classList.remove('btn-primary');
+			box.classList.add('btn-default');
+			document.getElementById("customInput").style.visibility = "hidden";
+			
+			clickedChangeGeocoder1('buttonOne2');
+		} else if (active == false) {
+			box.classList.remove('btn-default');
+			box.classList.add('btn-primary');
+			document.getElementById("customInput").style.visibility = "visible";
+			
+			var box2 = document.getElementById('buttonOne2');
+			try {
+				box2.classList.remove('btn-primary');
+				box2.classList.add('btn-default');
+			} catch (err) {
+				console.log("Found an error");
+			}
+		}
+	};
+	
 	return {
 		initMap: initMap,
 		clickedAddDataButtonOne: clickedAddDataButtonOne,
 		clickedAddDataButtonTwo: clickedAddDataButtonTwo,
 		clickedAddDataButtonThree: clickedAddDataButtonThree,
-		clickedAddDataButtonFour: clickedAddDataButtonFour
+		clickedAddDataButtonFour: clickedAddDataButtonFour,
+		clickedChangeGeocoder1: clickedChangeGeocoder1,
+		clickedChangeGeocoder2: clickedChangeGeocoder2
 	};
 })();
 
@@ -1127,6 +1177,7 @@ $(document).ready(function() {
 	northKansasCityPublicSchools.initMap();
 	$('#myModal').modal('show');
 	northKansasCityPublicSchools.clickedAddDataButtonOne("buttonOne");
+	northKansasCityPublicSchools.clickedChangeGeocoder1("buttonOne2");
 });
 
 
