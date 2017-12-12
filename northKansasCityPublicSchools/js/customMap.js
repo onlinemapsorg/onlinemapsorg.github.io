@@ -1118,6 +1118,7 @@ var northKansasCityPublicSchools = (function () {
 			try {
 				box2.classList.remove('btn-primary');
 				box2.classList.add('btn-default');
+				document.getElementById("customInput").style.visibility = "hidden";
 			} catch (err) {
 				console.log("Found an error");
 			}
@@ -1142,6 +1143,7 @@ var northKansasCityPublicSchools = (function () {
 			try {
 				box2.classList.remove('btn-primary');
 				box2.classList.add('btn-default');
+				document.getElementById("formOne").style.visibility = "hidden";
 			} catch (err) {
 				console.log("Found an error");
 			}
