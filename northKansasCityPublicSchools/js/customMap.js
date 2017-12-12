@@ -580,10 +580,6 @@ var northKansasCityPublicSchools = (function () {
             	marker.setMap(null);
         	});
         	markers = [];
-        	
-        	} catch (err) {
-        		console.log("found error");
-        	}
 
         	// Create a marker for each place.
         	markers.push(new google.maps.Marker({
